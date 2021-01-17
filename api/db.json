@@ -1,0 +1,24 @@
+{
+  "alunos": [
+    {
+      "id": 1,
+      "name": "Caio",
+      "surname": "Domingos"
+    },
+    {
+      "id": 2,
+      "name": "Juliana",
+      "surname": "Costa"
+    },
+    {
+      "name": "Andre",
+      "surname": "Domingos",
+      "id": 4
+    },
+    {
+      "name": "Carlos",
+      "surname": "Domingos",
+      "id": 5
+    }
+  ]
+}

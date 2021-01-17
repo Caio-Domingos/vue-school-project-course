@@ -21,10 +21,10 @@
       </thead>
       <tbody v-if="students.length > 0">
         <tr v-for="(student, index) in students" :key="index">
-          <td>{{ index + 1 }}</td>
-          <td>{{ student.name }}</td>
+          <td>{{ student.id }}</td>
+          <td>{{ student.name }} {{ student.surname }}</td>
           <td>
-            <button class="btn" @click="remove(index)">Remover</button>
+            <button class="btn" @click="remove(student)">Remover</button>
           </td>
         </tr>
       </tbody>
@@ -43,33 +43,54 @@ export default {
     return {
       title: 'Aluno',
       name: '',
-      students: [
-        {
-          id: 1,
-          name: 'Marcos',
-        },
-        {
-          id: 1,
-          name: 'Carlos',
-        },
-        {
-          id: 1,
-          name: 'Isabela',
-        },
-      ],
+      students: [],
     };
   },
   props: {},
   methods: {
     addStudent() {
-      this.students.push({ id: this.students.length, name: this.name });
+      let _student = {
+        name: this.name,
+        surname: 'Domingos',
+      };
+
+      this.$http
+        .post('http://localhost:3000/alunos/', _student)
+        .then((result) => {
+          console.log('result', result);
+          this.students.push(result.body);
+        })
+        .catch((err) => {
+          console.error('error', err);
+        });
+
       this.name = '';
       console.log('my students', this.students);
     },
-    remove(index) {
-      this.students.splice(index, 1);
-      console.log('my students', this.students);
+    remove(student) {
+      this.$http
+        .delete(`http://localhost:3000/alunos/${student.id}`)
+        .then((result) => {
+          console.log('result', result);
+          const index = this.students.indexOf(student);
+          this.students.splice(index, 1);
+          console.log('my students', this.students);
+        })
+        .catch((err) => {
+          console.error('error', err);
+        });
     },
+  },
+  created() {
+    this.$http
+      .get('http://localhost:3000/alunos/')
+      .then((result) => {
+        console.log('result', result);
+        this.students = result.body;
+      })
+      .catch((err) => {
+        console.error('error', err);
+      });
   },
 };
 </script>
