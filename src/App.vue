@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <Alunos />
+    <Nav />
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Alunos from './components/Aluno/Alunos.vue';
+import Nav from './components/_Nav/Nav.vue';
 
 export default {
   name: 'App',
   components: {
-    Alunos,
+    Nav,
   },
 };
 </script>
@@ -28,6 +31,10 @@ body,
 html {
   margin: 0;
   height: 100%;
+}
+
+#app {
+  width: 100%;
 }
 
 table {

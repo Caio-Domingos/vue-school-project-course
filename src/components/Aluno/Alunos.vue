@@ -98,6 +98,8 @@ export default {
 <style scoped>
 .input-content {
   display: flex;
+  max-width: 600px;
+  margin: auto;
 }
 
 input {
